@@ -1,19 +1,19 @@
-import styles from './CommentItem.module.css'; 
+import { useState } from 'react';
+import styles from './CommentItem.module.css';
 
 function CommentItem({ comment, onReply, onDelete, currentUser }) {
-  // Проверяем, автор ли текущий пользователь
+  const [showReplies, setShowReplies] = useState(false); // <-- Состояние для вкладки
   const isAuthor = currentUser?.id === comment.authorId || currentUser?.id === comment.author?.id;
 
   return (
     <div className={styles.commentBox}>
       <div className={styles.header}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          {/* Аватарка  */}
+        <div className={styles.authorBlock}>
           <img 
             src={`/users/${comment.authorId}/avatar`} 
             alt="avatar" 
-            style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover', backgroundColor: '#eee' }}
-            onError={(e) => { e.target.style.display = 'none'; }} // Скрываем при ошибке
+            className={styles.avatar}
+            onError={(e) => { e.target.style.display = 'none'; }}
           />
           <strong>{comment.author?.login || 'Пользователь'}</strong>
         </div>
@@ -22,16 +22,22 @@ function CommentItem({ comment, onReply, onDelete, currentUser }) {
         </span>
       </div>
 
+      {/* Пометка, если это ответ */}
+      {comment.parentId && (
+        <div className={styles.replyLabel}>
+          Ответ на комментарий
+        </div>
+      )}
+
       <div className={styles.text}>{comment.content || comment.text}</div>
 
-      <div style={{ display: 'flex', gap: '15px', marginTop: '5px' }}>
+      <div className={styles.actions}>
         <button className={styles.replyBtn} onClick={() => onReply(comment.id, comment.author?.login)}>
           Ответить
         </button>
         {isAuthor && (
           <button 
-            className={styles.replyBtn} 
-            style={{ color: '#d9534f' }} 
+            className={`${styles.replyBtn} ${styles.deleteBtn}`}
             onClick={() => onDelete(comment.id)}
           >
             Удалить
@@ -39,17 +45,29 @@ function CommentItem({ comment, onReply, onDelete, currentUser }) {
         )}
       </div>
 
+      {/* Вкладка для показа/скрытия ответов */}
       {comment.replies && comment.replies.length > 0 && (
-        <div className={styles.replies}>
-          {comment.replies.map(reply => (
-            <CommentItem 
-              key={reply.id} 
-              comment={reply} 
-              onReply={onReply} 
-              onDelete={onDelete} 
-              currentUser={currentUser} 
-            />
-          ))}
+        <div>
+          <button 
+            className={styles.toggleRepliesBtn}
+            onClick={() => setShowReplies(!showReplies)}
+          >
+            {showReplies ? 'Скрыть ответы' : `Показать ответы (${comment.replies.length})`}
+          </button>
+
+          {showReplies && (
+            <div className={styles.replies}>
+              {comment.replies.map(reply => (
+                <CommentItem 
+                  key={reply.id} 
+                  comment={reply} 
+                  onReply={onReply} 
+                  onDelete={onDelete} 
+                  currentUser={currentUser} 
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

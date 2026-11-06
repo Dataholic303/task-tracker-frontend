@@ -5,6 +5,7 @@ import TaskForm from '../../components/Task/TaskForm/TaskForm';
 import TaskModal from '../../components/Task/TaskModal/TaskModal';
 import { useSSE } from '../../hooks/SSE';
 import Toast from '../../components/UI/Toast';
+import styles from './BoardPage.module.css'; // <-- ИМПОРТ СТИЛЕЙ
 
 function BoardPage() {
   const { workspaceId } = useParams();
@@ -15,7 +16,7 @@ function BoardPage() {
   const [toast, setToast] = useState(null);
 
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
-  const userRole = currentUser.role || 'ADMIN'; // <-- РОЛЬ (заглушка)
+  const userRole = currentUser.role || 'ADMIN';
 
   useSSE('/notifications/user', (data) => {
     console.log("SSE User Event:", data);
@@ -59,54 +60,46 @@ function BoardPage() {
     }
   };
 
-  if (loading) return <div style={{ padding: '20px' }}>Загрузка задач...</div>;
+  if (loading) return <div className={styles.loading}>Загрузка задач...</div>;
 
   const todoTasks = tasks.filter(t => t.status === 'TODO');
   const inProgressTasks = tasks.filter(t => t.status === 'IN_PROGRESS');
   const doneTasks = tasks.filter(t => t.status === 'DONE');
 
+  // Функция для отрисовки одной колонки
   const renderColumn = (title, taskList, color) => (
-    <div style={{ flex: 1, backgroundColor: '#f4f5f7', padding: '15px', borderRadius: '8px', minHeight: '400px' }}>
-      <h3 style={{ borderBottom: `2px solid ${color}`, paddingBottom: '10px' }}>
+    <div className={styles.column}>
+      <h3 className={styles.columnTitle} style={{ borderBottom: `2px solid ${color}` }}>
         {title} ({taskList.length})
       </h3>
       {taskList.map(task => (
-        <div 
-          key={task.id} 
+        <div
+          key={task.id}
           onClick={() => setSelectedTask(task)}
-          style={{ 
-            backgroundColor: 'white', 
-            padding: '12px', 
-            marginBottom: '10px', 
-            borderRadius: '5px', 
-            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-            cursor: 'pointer',
-            textAlign: 'left'
-          }}
+          className={styles.taskCard}
         >
-          <div style={{ fontWeight: 'bold', color: '#555' }}>
+          <div className={styles.taskCode}>
             {task.jiraCode || task.code || `TASK-${task.id}`}
           </div>
-          <div style={{ margin: '5px 0', fontSize: '16px' }}>{task.title}</div>
-          <div style={{ fontSize: '12px', color: '#888', marginBottom: '10px' }}>
+          <div className={styles.taskTitle}>{task.title}</div>
+          <div className={styles.taskPriority}>
             Приоритет: {task.priority || 'MEDIUM'}
           </div>
 
-          {/* Скрываем кнопки для OBSERVER */}
           {userRole !== 'OBSERVER' && (
-            <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className={styles.statusButtons}>
               {task.status !== 'TODO' && (
-                <button onClick={(e) => handleStatusChange(e, task.id, 'TODO')} style={{ fontSize: '12px', padding: '4px 8px', cursor: 'pointer' }}>
+                <button onClick={(e) => handleStatusChange(e, task.id, 'TODO')}>
                   ← В TODO
                 </button>
               )}
               {task.status !== 'IN_PROGRESS' && (
-                <button onClick={(e) => handleStatusChange(e, task.id, 'IN_PROGRESS')} style={{ fontSize: '12px', padding: '4px 8px', cursor: 'pointer' }}>
+                <button onClick={(e) => handleStatusChange(e, task.id, 'IN_PROGRESS')}>
                   ⚙ В Работу
                 </button>
               )}
               {task.status !== 'DONE' && (
-                <button onClick={(e) => handleStatusChange(e, task.id, 'DONE')} style={{ fontSize: '12px', padding: '4px 8px', cursor: 'pointer' }}>
+                <button onClick={(e) => handleStatusChange(e, task.id, 'DONE')}>
                   ✓ Выполнено
                 </button>
               )}
@@ -118,38 +111,37 @@ function BoardPage() {
   );
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
-      <Link to="/workspaces" style={{ display: 'inline-block', marginBottom: '20px' }}>
+    <div className={styles.container}>
+      <Link to="/workspaces" className={styles.backLink}>
         ← Назад к пространствам
       </Link>
-      <h2>Канбан-доска</h2>
-      
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h2 className={styles.title}>Канбан-доска</h2>
 
-      {/* Скрываем форму создания для OBSERVER и EXECUTOR */}
+      {error && <p className={styles.error}>{error}</p>}
+
       {userRole !== 'OBSERVER' && userRole !== 'EXECUTOR' && (
         <TaskForm onCreate={handleCreateTask} />
       )}
 
-      <div style={{ display: 'flex', gap: '20px' }}>
+      <div className={styles.columnsWrapper}>
         {renderColumn('TODO', todoTasks, '#6c757d')}
         {renderColumn('IN_PROGRESS', inProgressTasks, '#007bff')}
         {renderColumn('DONE', doneTasks, '#28a745')}
       </div>
 
       {selectedTask && (
-        <TaskModal 
-          task={selectedTask} 
-          onClose={() => setSelectedTask(null)} 
+        <TaskModal
+          task={selectedTask}
+          onClose={() => setSelectedTask(null)}
           currentUser={currentUser}
         />
       )}
 
       {toast && (
-        <Toast 
-          message={toast.message} 
-          type={toast.type} 
-          onClose={() => setToast(null)} 
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
         />
       )}
     </div>

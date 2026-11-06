@@ -178,12 +178,14 @@ function TaskModal({ task, onClose, currentUser }) {
         <form onSubmit={handleSendComment} className={styles.commentForm}>
           {replyToId && (
             <div className={styles.replyBanner}>
-              Ответ на комментарий от <strong>{replyToName}</strong>
-              <button type="button" onClick={() => setReplyToId(null)}>✖</button>
+              <span>Ответ на комментарий от <strong>{replyToName}</strong></span>
+              <button type="button" onClick={() => { setReplyToId(null); setReplyToName(''); }}>
+                ✖ Отменить
+              </button>
             </div>
           )}
           <textarea
-            placeholder="Напишите комментарий..."
+            placeholder={replyToId ? `Ответ ${replyToName}...` : "Напишите комментарий..."}
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             rows={3}

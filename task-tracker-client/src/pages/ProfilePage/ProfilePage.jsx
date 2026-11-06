@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../api';
+import styles from '../ProfilePage/ProfilePage.module.css'; 
 
 function ProfilePage() {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [file, setFile] = useState(null); 
+  const [file, setFile] = useState(null);
   const [uploadMsg, setUploadMsg] = useState('');
   const navigate = useNavigate();
 
-
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = currentUser.id;
-  const avatarUrl = `/users/${userId}/avatar`; 
+  const avatarUrl = `/users/${userId}/avatar`;
 
   const fetchSessions = () => {
     api.get('/auth/sessions')
@@ -30,7 +30,6 @@ function ProfilePage() {
     fetchSessions();
   }, []);
 
-
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -40,7 +39,7 @@ function ProfilePage() {
     setUploadMsg('Загрузка...');
 
     const formData = new FormData();
-    formData.append('file', file); 
+    formData.append('file', file);
 
     try {
       await api.put('/users/me/avatar', formData, {
@@ -49,8 +48,7 @@ function ProfilePage() {
         },
       });
       setUploadMsg('Аватарка обновлена!');
-      
-      window.location.reload(); 
+      window.location.reload();
     } catch (err) {
       setUploadMsg('Ошибка: ' + (err.response?.data?.message || err.message));
     }
@@ -77,66 +75,68 @@ function ProfilePage() {
     }
   };
 
-  if (loading) return <div style={{ padding: '20px' }}>Загрузка...</div>;
+  if (loading) return <div className={styles.container}>Загрузка...</div>;
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif', maxWidth: '800px', margin: '0 auto' }}>
-      <Link to="/workspaces" style={{ display: 'inline-block', marginBottom: '20px' }}>
+    <div className={styles.container}>
+      <Link to="/workspaces" className={styles.backLink}>
         ← Назад к пространствам
       </Link>
-      
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px' }}>
+
+      <div className={styles.profileHeader}>
         {/* Отображение аватарки */}
-        <img 
-          src={avatarUrl} 
-          alt="Аватар" 
-          style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #ddd' }}
-          onError={(e) => { e.target.style.display = 'none'; }} // Заглушка, если нет авы!!!
+        <img
+          src={avatarUrl}
+          alt="Аватар"
+          className={styles.avatar}
+          onError={(e) => { e.target.style.display = 'none'; }}
         />
-        
-        <div>
-          <h2 style={{ margin: 0 }}>Мой профиль</h2>
-          <p style={{ color: '#666', margin: '5px 0' }}>Логин: {currentUser.login}</p>
-          
+
+        <div className={styles.userInfo}>
+          <h2>Мой профиль</h2>
+          <p>Логин: {currentUser.login}</p>
+
           {/* Форма загрузки аватарки */}
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '10px' }}>
+          <div className={styles.uploadForm}>
             <input type="file" onChange={handleFileChange} accept="image/*" />
-            <button 
-              onClick={handleUploadAvatar} 
+            <button
+              onClick={handleUploadAvatar}
               disabled={!file}
-              style={{ padding: '5px 15px', cursor: file ? 'pointer' : 'not-allowed' }}
+              className={styles.uploadBtn}
             >
               Загрузить
             </button>
           </div>
-          {uploadMsg && <p style={{ color: 'green', fontSize: '14px', margin: '5px 0' }}>{uploadMsg}</p>}
+          {uploadMsg && <p className={styles.uploadMsg}>{uploadMsg}</p>}
         </div>
       </div>
 
       <h3>Активные сессии</h3>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <div className={styles.sessionsList}>
         {sessions.map(s => (
-          <div key={s.id} style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
+          <div key={s.id} className={styles.sessionCard}>
+            <div className={styles.sessionInfo}>
               <strong>{s.userAgent || 'Неизвестное устройство'}</strong>
-              <div style={{ fontSize: '12px', color: '#666' }}>
+              <div className={styles.sessionMeta}>
                 IP: {s.ip} | {new Date(s.createdAt).toLocaleString()}
               </div>
             </div>
-            <button onClick={() => handleDeleteSession(s.id)} style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}>
+            <button onClick={() => handleDeleteSession(s.id)} className={styles.deleteSessionBtn}>
               Завершить
             </button>
           </div>
         ))}
-        {sessions.length === 0 && <p>Нет активных сессий.</p>}
+        {sessions.length === 0 && <p className={styles.emptySessions}>Нет активных сессий.</p>}
       </div>
 
-      <hr style={{ margin: '30px 0' }} />
+      <hr className={styles.divider} />
 
-      <h3 style={{ color: 'red' }}>Опасная зона</h3>
-      <button onClick={handleDeleteAccount} style={{ backgroundColor: '#dc3545', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
-        Удалить аккаунт навсегда
-      </button>
+      <div className={styles.dangerZone}>
+        <h3>Опасная зона</h3>
+        <button onClick={handleDeleteAccount} className={styles.deleteAccountBtn}>
+          Удалить аккаунт навсегда
+        </button>
+      </div>
     </div>
   );
 }
