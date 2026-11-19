@@ -1,0 +1,48 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: 0.2s;
+}
+
+.card:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  border: 2px solid #e92845;
+  background-color: #e6f2ff;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.code {
+  font-size: 14px;
+  color: #666;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: #ff4d4f;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.deleteBtn:hover {
+  color: #d9363e;
+}
