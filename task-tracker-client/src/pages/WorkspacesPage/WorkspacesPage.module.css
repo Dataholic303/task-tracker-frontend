@@ -1,0 +1,166 @@
+.container {
+  padding: 20px;
+  font-family: sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profileLink {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.error {
+  color: red;
+}
+
+.mainContent {
+  display: flex;
+  gap: 20px;
+}
+
+.leftColumn {
+  flex: 1;
+}
+
+.listTitle {
+  margin-bottom: 10px;
+}
+
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.emptyMessage {
+  color: #888;
+}
+
+.rightColumn {
+  flex: 1;
+  border-left: 1px solid #eee;
+  padding-left: 20px;
+}
+
+.workspaceDetails h3 {
+  margin-top: 0;
+}
+
+.goToBoardBtn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.goToBoardBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Управление участниками */
+.memberSection {
+  margin-top: 20px;
+}
+
+.memberMsg {
+  color: blue;
+}
+
+.searchBox {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.searchBtn {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.searchBtn:hover {
+  background-color: #e2e6ea;
+}
+
+.foundUsersBox {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.foundUserRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.selectUserBtn {
+  padding: 2px 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.selectUserBtnSelected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.addMemberBox {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.roleSelect {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.addMemberBtn {
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.addMemberBtn:hover {
+  background-color: #218838;
+}
+
+.placeholderText {
+  color: #888;
+}
