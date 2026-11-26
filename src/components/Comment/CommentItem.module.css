@@ -1,0 +1,73 @@
+/* Контейнер для автора (аватарка + логин) */
+.authorBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Аватарка автора */
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #eee;
+}
+
+/* Контейнер для кнопок "Ответить" и "Удалить" */
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.replyBtn {
+  width: 80px;
+  background-color: #139f10;
+  color: #fcfffb;
+  border: none;
+  border-radius: 3px;
+}
+
+/* Кнопка удаления (красный цвет) */
+.deleteBtn {
+  width: 80px;
+  background-color: #df0a0a;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+}
+
+/* Пометка "Ответ на комментарий" */
+.replyLabel {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+  font-style: italic;
+}
+
+/* Кнопка-вкладка для показа/скрытия ответов */
+.toggleRepliesBtn {
+  background: none;
+  border: none;
+  color: #0b0c0d;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.toggleRepliesBtn:hover {
+  text-decoration: underline;
+}
+
+/* Контейнер для вложенных ответов */
+.replies {
+  margin-left: 24px;
+  margin-top: 8px;
+  border-left: 3px solid #050505; 
+  padding-left: 16px;
+}

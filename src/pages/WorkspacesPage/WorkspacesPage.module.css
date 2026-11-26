@@ -1,0 +1,223 @@
+.container {
+  width: 90%;
+  margin: 0 auto; 
+  padding: 40px 30px; 
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.profileLink {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.mainContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; 
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.leftColumn {
+  flex: 1; 
+  min-width: 300px;
+}
+
+.listTitle {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.emptyMessage {
+  color: #888;
+}
+
+.rightColumn {
+  flex: 1; 
+  min-width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  min-height: 400px;
+}
+
+.workspaceDetails h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.goToBoardBtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 12px 20px;
+  background-color: #0d0e0f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.goToBoardBtn:hover {
+  background-color: #888d93;
+}
+
+.memberSection {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.memberSection h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.memberMsg {
+  color: #060707;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.searchBox {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.searchBtn {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.searchBtn:hover {
+  background-color: #e2e6ea;
+}
+
+.foundUsersBox {
+  border: 1px solid #eaeaea;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+}
+
+.foundUserRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.foundUserRow:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.selectUserBtn {
+  padding: 5px 15px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.selectUserBtnSelected {
+  background-color: #0faf0f;
+  color: white;
+  border-color: none;
+}
+
+.addMemberBox {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.roleSelect {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.addMemberBtn {
+  padding: 10px 25px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background-color 0.2s;
+}
+
+.addMemberBtn:hover {
+  background-color: #218838;
+}
+
+.placeholderText {
+  color: #888;
+  font-size: 18px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .container { padding: 20px 15px; }
+  .mainContent { gap: 20px; }
+  .rightColumn { padding: 20px; }
+}
