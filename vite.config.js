@@ -6,20 +6,20 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://94.228.121.160',
+        target: 'http://136.234.178.191',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
       // ДЛЯ АВАТАРОК
       '/users': {
-        target: 'http://94.228.121.160',
+        target: 'http://136.234.178.191',
         changeOrigin: true,
         secure: false,
       },
       // ДЛЯ SSE
       '/notifications': {
-        target: 'http://94.228.121.160',
+        target: 'http://136.234.178.191',
         changeOrigin: true,
         secure: false,
       }
