@@ -4,7 +4,7 @@ import WorkspaceCard from '../../components/Workspace/WorkspaceCard/WorkspaceCar
 import WorkspaceForm from '../../components/Workspace/WorkspaceForm/WorkspaceForm';
 import { useNavigate, Link } from 'react-router-dom';
 import ConfirmModal from '../../components/UI/ConfirmModal/ConfirmModal';
-import Toast from '../../components/UI/Toast/Toast'; // <-- проверьте путь
+import Toast from '../../components/UI/Toast/Toast'; 
 import styles from '../WorkspacesPage/WorkspacesPage.module.css';
 
 function WorkspacesPage() {

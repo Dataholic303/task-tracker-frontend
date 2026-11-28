@@ -4,7 +4,7 @@ import api from '../../api';
 import TaskForm from '../../components/Task/TaskForm/TaskForm';
 import TaskModal from '../../components/Task/TaskModal/TaskModal';
 import { useSSE } from '../../hooks/SSE';
-import Toast from '../../components/UI/Toast';
+import Toast from '../../components/UI/Toast/Toast';
 import styles from './BoardPage.module.css';
 
 // Сортировка задач по исполнителям
